@@ -26,6 +26,42 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
+## Environment Variable
+
+1. **Install @types/node**
+
+```bash
+npm i @types/nodes
+```
+
+2. **Modify your tsconfig.app.json**
+
+```json
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+ //all other config
+    ...
+  "compilerOptions": {
+    //all other config
+    ...
+    "types": ["node"],
+    ...
+    //all other config
+  },
+  ...
+    //all other config
+}
+```
+
+3. **Install @angular-builders/custom-webpack and dotenv-webpack**
+
+```bash
+npm install @angular-builders/custom-webpack -D
+npm install dotenv-webpack -D
+```
+
+API_KEY = YOUR_API_KEY
+
 ## Font Awesome
 
 ### Configuration
