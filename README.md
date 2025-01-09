@@ -25,3 +25,54 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Font Awesome
+
+### Configuration
+
+add in angular.json
+
+```json
+"styles": [
+    "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    ],
+
+```
+
+## Bootstrap
+
+### Configuration
+
+add in angular.json
+
+```json
+"styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+    ],
+"scripts": [
+    "node_modules/@popperjs/core/dist/umd/popper.min.js",
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    ]
+```
+
+### Breakpoint
+
+| Breakpoint        | Classe                      | Dimensions |
+| ----------------- | --------------------------- | ---------- |
+| Extra small       | Aucune (point de référence) | `<576px`   |
+| Small             | `sm`                        | `≥576px`   |
+| Medium            | `md`                        | `≥768px`   |
+| Large             | `lg`                        | `≥992px`   |
+| Extra large       | `xl`                        | `≥1200px`  |
+| Extra extra large | `xxl`                       | `≥1400px`  |
+
+### Container
+
+| Container Class  | Extra small `<576px` | Small `≥576px` | Medium `≥768px` | Large `≥992px` | Extra large `≥1200px` | Extra extra large `≥1400px` |
+| ---------------- | -------------------- | -------------- | --------------- | -------------- | --------------------- | --------------------------- |
+| `.container`     | Auto                 | 540px          | 720px           | 960px          | 1140px                | 1320px                      |
+| `.container-sm`  | Auto                 | 540px          | 720px           | 960px          | 1140px                | 1320px                      |
+| `.container-md`  | Auto                 | Auto           | 720px           | 960px          | 1140px                | 1320px                      |
+| `.container-lg`  | Auto                 | Auto           | Auto            | 960px          | 1140px                | 1320px                      |
+| `.container-xl`  | Auto                 | Auto           | Auto            | Auto           | 1140px                | 1320px                      |
+| `.container-xxl` | Auto                 | Auto           | Auto            | Auto           | Auto                  | 1320px                      |
