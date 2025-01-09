@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { LayoutComponent } from './shared/layout/layout.component';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { LayoutComponent } from "./components/layout/layout.component";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, NavbarComponent, LayoutComponent],
+  imports: [RouterOutlet, LayoutComponent],
+
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  standalone: true,
 })
 export class AppComponent {
   title = 'angular-bootstrap';

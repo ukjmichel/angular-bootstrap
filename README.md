@@ -60,6 +60,54 @@ npm install @angular-builders/custom-webpack -D
 npm install dotenv-webpack -D
 ```
 
+4. **Modify your angular.json**
+
+Modify the angular.json file, locate the projects.architect.build and modify the value of the builder as shown below, you also need to add the options property and value
+
+```json
+"architect":
+{
+....
+  "build":
+  {
+    "builder": "@angular-builders/custom-webpack:browser",
+    "options":
+    {
+      "customWebpackConfig":
+      {
+        "path": "src/custom-webpack.config.ts"
+      },
+      .....
+    },
+    .......
+  }
+}
+```
+
+then locate the projects.architect.serve and modify the value of the builder as shown below
+
+```json
+"serve":
+{
+  "builder": "@angular-builders/custom-webpack:dev-server",
+  ....
+}
+```
+
+5. **Create custom-webpack.config.ts file**
+
+next up we need to create the custom-webpack.config.ts file in our src folder
+
+```ts
+import { EnvironmentPlugin } from "webpack";
+const Dotenv = require("dotenv-webpack");
+module.exports = {
+  plugins: [new Dotenv()],
+};
+```
+
+6. **Create .env file**
+
 API_KEY = YOUR_API_KEY
 
 ## Font Awesome

@@ -1,0 +1,195 @@
+<div class="container my-5">
+  <!-- Current Weather Card -->
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h1 class="h4 mb-0">Location Information</h1>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">General Details</h5>
+      <p><strong>City:</strong> {{ locationWeatherData?.location?.name }}</p>
+      <p>
+        <strong>Region:</strong> {{ locationWeatherData?.location?.region }}
+      </p>
+      <p>
+        <strong>Country:</strong> {{ locationWeatherData?.location?.country }}
+      </p>
+      <p>
+        <strong>Timezone:</strong> {{ locationWeatherData?.location?.tz_id }}
+      </p>
+      <p>
+        <strong>Local Time:</strong>
+        {{ locationWeatherData?.location?.localtime }}
+      </p>
+
+      <hr />
+
+      <h5 class="card-title">Current Weather</h5>
+      <p>
+        <strong>Temperature:</strong>
+        {{ locationWeatherData?.current?.temp_c }}°C /
+        {{ locationWeatherData?.current?.temp_f }}°F
+      </p>
+      <p>
+        <strong>Condition:</strong>
+        {{ locationWeatherData?.current?.condition?.text }}
+      </p>
+      <img
+        [src]="locationWeatherData?.current?.condition?.icon"
+        alt="Weather icon"
+        style="width: 100px; height: 100px"
+      />
+
+      <p>
+        <strong>Feels Like:</strong>
+        {{ locationWeatherData?.current?.feelslike_c }}°C /
+        {{ locationWeatherData?.current?.feelslike_f }}°F
+      </p>
+      <p>
+        <strong>Wind Speed:</strong>
+        {{ locationWeatherData?.current?.wind_kph }} kph /
+        {{ locationWeatherData?.current?.wind_mph }} mph
+      </p>
+      <p>
+        <strong>Wind Direction:</strong>
+        {{ locationWeatherData?.current?.wind_dir }} ({{
+          locationWeatherData?.current?.wind_degree
+        }}°)
+      </p>
+      <p>
+        <strong>Pressure:</strong>
+        {{ locationWeatherData?.current?.pressure_mb }} mb /
+        {{ locationWeatherData?.current?.pressure_in }} in
+      </p>
+      <p>
+        <strong>Precipitation:</strong>
+        {{ locationWeatherData?.current?.precip_mm }} mm /
+        {{ locationWeatherData?.current?.precip_in }} in
+      </p>
+      <p>
+        <strong>Humidity:</strong> {{ locationWeatherData?.current?.humidity }}%
+      </p>
+      <p>
+        <strong>Cloud Cover:</strong> {{ locationWeatherData?.current?.cloud }}%
+      </p>
+      <p>
+        <strong>Visibility:</strong>
+        {{ locationWeatherData?.current?.vis_km }} km /
+        {{ locationWeatherData?.current?.vis_miles }} miles
+      </p>
+      <p><strong>UV Index:</strong> {{ locationWeatherData?.current?.uv }}</p>
+      <p>
+        <strong>Gust Speed:</strong>
+        {{ locationWeatherData?.current?.gust_kph }} kph /
+        {{ locationWeatherData?.current?.gust_mph }} mph
+      </p>
+    </div>
+  </div>
+
+  <!-- Collapsible Forecast Card -->
+  <!-- Collapsible Forecast Card -->
+  <div class="card mt-4">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">
+        <button
+          class="btn btn-link text-white text-decoration-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#forecastCollapse"
+          aria-expanded="false"
+          aria-controls="forecastCollapse"
+        >
+          View Forecast Details
+        </button>
+      </h5>
+    </div>
+    <div id="forecastCollapse" class="collapse">
+      <div class="card-body">
+        <!-- Display Selected Day at the Top -->
+        <h1 class="text-center my-3" *ngIf="selectedDay">
+          {{ selectedDay.date | date : "EEEE, dd MMM yyyy" }}
+        </h1>
+
+        <!-- Day Pagination -->
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="selectedDayIndex === 0">
+              <button class="page-link" (click)="prevDay()">
+                Previous Day
+              </button>
+            </li>
+            <li
+              class="page-item"
+              [class.disabled]="selectedDayIndex === forecastDays.length - 1"
+            >
+              <button class="page-link" (click)="nextDay()">Next Day</button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Display Selected Day Details -->
+        <div *ngIf="selectedDay">
+          <!-- Hour Pagination -->
+          <div class="container-fluid">
+            <div class="row">
+              <div
+                class="col-md-4 mb-3"
+                *ngFor="
+                  let hour of getPaginatedHours(selectedDay.hour);
+                  let j = index
+                "
+              >
+                <div class="card p-3">
+                  <p class="display-6">
+                    <strong>{{ hour.time | date : "shortTime" }}</strong>
+                  </p>
+                  <p>
+                    <strong>Temperature:</strong> {{ hour.temp_c }}°C /
+                    {{ hour.temp_f }}°F
+                  </p>
+                  <p><strong>Condition:</strong> {{ hour.condition.text }}</p>
+                  <img
+                    [src]="hour.condition.icon"
+                    alt="Hourly weather icon"
+                    style="width: 100px; height: 100px"
+                  />
+                  <p>
+                    <strong>Wind Speed:</strong> {{ hour.wind_kph }} kph /
+                    {{ hour.wind_mph }} mph
+                  </p>
+                  <p>
+                    <strong>Precipitation:</strong> {{ hour.precip_mm }} mm /
+                    {{ hour.precip_in }} in
+                  </p>
+                  <p><strong>Humidity:</strong> {{ hour.humidity }}%</p>
+                  <p>
+                    <strong>Visibility:</strong> {{ hour.vis_km }} km /
+                    {{ hour.vis_miles }} miles
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hour Pagination Controls -->
+            <nav>
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentHourPage === 0">
+                  <button class="page-link" (click)="prevHourPage()">
+                    Previous Hours
+                  </button>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="currentHourPage === totalHourPages - 1"
+                >
+                  <button class="page-link" (click)="nextHourPage()">
+                    Next Hours
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
